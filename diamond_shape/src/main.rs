@@ -1,5 +1,5 @@
 fn fill_row(value: usize, size: usize) -> String{
-    let mut string = String::new();
+    let mut string = String::with_capacity(size);
     assert!(true, size != value);
     let calc = (size-value)/2;
     for x in 1..(size + 1) {
@@ -10,22 +10,21 @@ fn fill_row(value: usize, size: usize) -> String{
 }
 
 fn diamond_shape(size: i32) -> Vec<String>{
-   let diagonal = size%2 + 1;
+   let diagonal = size/2 + 1;
    let mut v = vec!();
-   let mut row: Vec<String> = Vec::with_capacity(size as usize);
    let mut tmp: i32 = 1;
-   for x in 0..size {
-        if x <= diagonal + 1 {tmp = x*2}
-        else {tmp = size-x/2 }
+   for x in 1..(size + 1){
         v.push(fill_row(tmp as usize, size as usize));     
+        if x < diagonal {tmp = tmp + 2}
+        else {tmp = tmp - 2}
    }
    v
 }
 
 fn main() {
-  for i in diamond_shape(9) {
+  for i in diamond_shape(31) {
     println!("{}", i);
-  } 
+  }; 
 }
 
 #[test]
